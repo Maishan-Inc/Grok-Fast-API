@@ -435,6 +435,7 @@ def create_app() -> FastAPI:
 
         if _is_serverless_environment():
             await _ensure_serverless_runtime()
+            await _config.load()
         else:
             await _config.load()
             reconcile_refresh_runtime()
