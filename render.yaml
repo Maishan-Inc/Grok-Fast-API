@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: grok2api
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: LOG_LEVEL
+        value: INFO
+      - key: SERVER_HOST
+        value: 0.0.0.0
+      - key: SERVER_WORKERS
+        value: 1
+      - key: ACCOUNT_STORAGE
+        value: postgresql
+      - key: ACCOUNT_POSTGRESQL_URL
+        sync: false
+      - key: AIVEN_CA_CERT
+        sync: false
+      - key: AIVEN_CA_CERT_PATH
+        value: /app/data/aiven-ca.pem

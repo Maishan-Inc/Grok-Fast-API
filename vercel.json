@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
+    }
+  ],
+  "env": {
+    "LOG_LEVEL": "INFO",
+    "SERVER_HOST": "0.0.0.0",
+    "SERVER_WORKERS": "1",
+    "ACCOUNT_STORAGE": "postgresql",
+    "LOG_FILE_ENABLED": "false",
+    "DATA_DIR": "/tmp/grok2api-data",
+    "LOG_DIR": "/tmp/grok2api-logs",
+    "AIVEN_CA_CERT_PATH": "/tmp/grok2api-data/aiven-ca.pem"
+  }
+}
