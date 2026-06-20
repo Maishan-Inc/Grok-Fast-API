@@ -1305,6 +1305,7 @@ async function doSave() {
   // "proxy.egress.mode" → {proxy:{egress:{mode:v}}}
   const patch = {};
   Object.entries(_dirty).forEach(([fp, v]) => _setByPath(patch, fp, v));
+  const newAppKey = _dirty['app.app_key'];  // capture before clearing
 
   try {
     showToast(tr('config.saving', null, '正在保存更改…'), 'info');
@@ -1316,6 +1317,11 @@ async function doSave() {
     renderAll();
     _refreshDirtyState({ autoNormalizeSelects: false });
     showToast(tr('config.saveSuccess', null, '更改已保存'), 'success');
+    // If app_key changed, update stored session key and redirect to re-login.
+    if (newAppKey !== undefined) {
+      await adminKey.set(newAppKey);
+      location.href = '/admin/login';
+    }
   } catch (e) {
     showToast(tr('config.saveFailed', { message: e.message }, `保存更改失败: ${e.message}`), 'error');
   }
