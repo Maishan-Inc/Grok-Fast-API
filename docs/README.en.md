@@ -67,7 +67,8 @@ docker run -d \
   -p 8000:8000 \
   -e TZ=Asia/Shanghai \
   -e LOG_LEVEL=INFO \
-  -e ACCOUNT_STORAGE=local \
+  -e ACCOUNT_STORAGE=postgresql \
+  -e ACCOUNT_POSTGRESQL_URL=postgresql+asyncpg://user:password@host:5432/database \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/logs:/app/logs \
   --restart unless-stopped \
@@ -82,7 +83,8 @@ docker run -d `
   -p 8000:8000 `
   -e TZ=Asia/Shanghai `
   -e LOG_LEVEL=INFO `
-  -e ACCOUNT_STORAGE=local `
+  -e ACCOUNT_STORAGE=postgresql `
+  -e ACCOUNT_POSTGRESQL_URL=postgresql+asyncpg://user:password@host:5432/database `
   -v ${PWD}/data:/app/data `
   -v ${PWD}/logs:/app/logs `
   --restart unless-stopped `
@@ -221,7 +223,7 @@ Bootstrap-time variables (`.env` / Compose / `docker run -e`):
 | `HOST_PORT` | Compose host port mapping | `8000` |
 | `DATA_DIR` | Data root | `./data` |
 | `LOG_DIR` | Logs dir | `./logs` |
-| `ACCOUNT_STORAGE` | Backend: `local` / `redis` / `mysql` / `postgresql` | `local` |
+| `ACCOUNT_STORAGE` | Backend: `local` / `redis` / `mysql` / `postgresql` | `postgresql` |
 | `ACCOUNT_LOCAL_PATH` | SQLite path for `local` mode | `${DATA_DIR}/accounts.db` |
 | `ACCOUNT_REDIS_URL` | DSN for `redis` mode | `""` |
 | `ACCOUNT_MYSQL_URL` | DSN for `mysql` mode | `""` |
@@ -232,7 +234,7 @@ Bootstrap-time variables (`.env` / Compose / `docker run -e`):
 | `ACCOUNT_SQL_POOL_RECYCLE` | Connection recycle time (s) | `1800` |
 | `CONFIG_LOCAL_PATH` | Runtime config file path | `${DATA_DIR}/config.toml` |
 
-Runtime config can also be overridden via `GROK_`-prefixed env vars, e.g. `GROK_APP_API_KEY` overrides `app.api_key`, `GROK_FEATURES_STREAM` overrides `features.stream`.
+Runtime config is stored in the same backend as `ACCOUNT_STORAGE`; for the default `postgresql` mode, admin changes such as `app.app_key` are stored in the `config_store` table. Runtime config can also be overridden via `GROK_`-prefixed env vars, e.g. `GROK_APP_APP_KEY` overrides the admin password, `GROK_APP_API_KEY` overrides `app.api_key`, and `GROK_FEATURES_STREAM` overrides `features.stream`.
 
 <br>
 

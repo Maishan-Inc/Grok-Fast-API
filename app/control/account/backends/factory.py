@@ -14,10 +14,10 @@ _SUPPORTED_BACKENDS = {"local", "redis", "mysql", "postgresql"}
 def create_repository() -> AccountRepository:
     """Instantiate the configured account storage backend.
 
-    Startup env: ``ACCOUNT_STORAGE``  (default: ``"local"``)
+    Startup env: ``ACCOUNT_STORAGE``  (default: ``"postgresql"``)
 
     Supported values:
-      ``local``      — SQLite (default, single-process)
+      ``local``      — SQLite (single-process)
       ``redis``      — Redis hash + sorted-set layout
       ``mysql``      — MySQL via aiomysql / SQLAlchemy
       ``postgresql`` — PostgreSQL via asyncpg / SQLAlchemy
@@ -57,7 +57,7 @@ def describe_repository_target() -> tuple[str, str]:
 
 def get_repository_backend() -> str:
     """Return the configured account storage backend from startup env."""
-    backend = _get_env("ACCOUNT_STORAGE", "local").lower()
+    backend = _get_env("ACCOUNT_STORAGE", "postgresql").lower()
     if backend not in _SUPPORTED_BACKENDS:
         raise ValueError(f"Unknown account storage backend: {backend!r}")
     return backend

@@ -25,16 +25,20 @@ grok2api
 
 | 变量名 | 说明 |
 | :-- | :-- |
+| `ACCOUNT_STORAGE` | 存储后端，默认 `postgresql` |
 | `ACCOUNT_POSTGRESQL_URL` | Aiven PostgreSQL 连接串，建议包含 `sslmode=verify-full` |
 | `AIVEN_CA_CERT` | Aiven `ca.pem` 完整内容 |
 
 示例：
 
 ```env
+ACCOUNT_STORAGE=postgresql
 ACCOUNT_POSTGRESQL_URL=postgresql://avnadmin:password@host.aivencloud.com:12345/defaultdb?sslmode=verify-full
 AIVEN_CA_CERT=-----BEGIN CERTIFICATE-----
 ...
 -----END CERTIFICATE-----
 ```
+
+后台配置会写入 PostgreSQL 的 `config_store` 表；`GROK_*` 环境变量仍然拥有最高优先级，例如 `GROK_APP_APP_KEY` 会强制覆盖后台密码。
 
 不要把真实数据库密码或证书提交到 Git 仓库。

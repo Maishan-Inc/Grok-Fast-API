@@ -9,7 +9,7 @@ from .base import ConfigBackend
 
 def get_config_backend_name() -> str:
     """Return the active config backend name (mirrors ACCOUNT_STORAGE)."""
-    return os.getenv("ACCOUNT_STORAGE", "local").strip().lower()
+    return os.getenv("ACCOUNT_STORAGE", "postgresql").strip().lower()
 
 
 def create_config_backend() -> ConfigBackend:
