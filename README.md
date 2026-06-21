@@ -37,4 +37,4 @@ AIVEN_CA_CERT=-----BEGIN CERTIFICATE-----
 -----END CERTIFICATE-----
 ```
 
-不要把真实数据库密码或证书提交到 Git 仓库。
+[linux do](https://linux.do)
