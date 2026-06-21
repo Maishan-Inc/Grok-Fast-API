@@ -27,7 +27,8 @@ grok2api
 | :-- | :-- |
 | `ACCOUNT_POSTGRESQL_URL` | Aiven PostgreSQL 连接串，建议包含 `sslmode=verify-full` |
 | `AIVEN_CA_CERT` | Aiven `ca.pem` 完整内容 |
-| `GROK_APP_API_KEY` | 如果出现修改密码后无法登录 请使用此环境变量强制修改密码 |
+| `GROK_APP_APP_KEY` |后台密码 如果出现修改密码后无法登录 请使用此环境变量强制修改密码 |
+| `GROK_APP_API_KEY` | API密钥 如果出现修改密钥无法使用 请使用此环境变量强制修改密钥 |
 
 
 示例：
